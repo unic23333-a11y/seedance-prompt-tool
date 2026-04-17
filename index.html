@@ -8,77 +8,85 @@
 :root{--bg:#0d0d12;--bg-surface:#16161d;--bg-card:#1e1e28;--bg-input:#252532;--fg:#e8e4f0;--fg-muted:#7a7890;--fg-subtle:#4a4860;--accent:#7c6ff7;--accent2:#f76f9a;--accent-glow:rgba(124,111,247,.2);--border:#2e2e3e;--radius:12px;--radius-sm:8px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.6}
-header{padding:24px 16px 16px;text-align:center;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(124,111,247,.1) 0%,transparent 100%)}
-.badge{display:inline-block;background:var(--accent-glow);border:1px solid var(--accent);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:8px}
-h1{font-size:clamp(16px,3vw,24px);font-weight:700;background:linear-gradient(135deg,#e8e4f0 0%,#a89ef7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
-.subtitle{color:var(--fg-muted);font-size:11px}
-.container{max-width:1200px;margin:0 auto;padding:16px 10px 50px;display:grid;grid-template-columns:1fr 320px;gap:14px;align-items:start}
+header{padding:20px 14px 14px;text-align:center;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(124,111,247,.1) 0%,transparent 100%)}
+.badge{display:inline-block;background:var(--accent-glow);border:1px solid var(--accent);color:var(--accent);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-bottom:7px}
+h1{font-size:clamp(15px,3vw,22px);font-weight:700;background:linear-gradient(135deg,#e8e4f0 0%,#a89ef7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px}
+.subtitle{color:var(--fg-muted);font-size:10px}
+.container{max-width:1200px;margin:0 auto;padding:14px 10px 50px;display:grid;grid-template-columns:1fr 300px;gap:12px;align-items:start}
 @media(max-width:860px){.container{grid-template-columns:1fr}}
-.mode-tabs{display:flex;gap:4px;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);padding:4px;margin-bottom:12px;flex-wrap:wrap}
-.mode-tab{flex:1;min-width:72px;padding:6px 7px;border:none;background:transparent;color:var(--fg-muted);font-size:11px;font-weight:600;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;white-space:nowrap}
+.mode-tabs{display:flex;gap:4px;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);padding:4px;margin-bottom:11px;flex-wrap:wrap}
+.mode-tab{flex:1;min-width:68px;padding:5px 6px;border:none;background:transparent;color:var(--fg-muted);font-size:11px;font-weight:600;border-radius:var(--radius-sm);cursor:pointer;transition:all .2s;white-space:nowrap}
 .mode-tab:hover{color:var(--fg);background:var(--bg-input)}
 .mode-tab.active{background:var(--accent);color:#fff}
-.panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
-.field{margin-bottom:11px}
+.panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px}
+.field{margin-bottom:10px}
 .field:last-child{margin-bottom:0}
-label{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;margin-bottom:5px;flex-wrap:wrap}
-.label-tag{font-size:9px;background:var(--accent-glow);color:var(--accent);border:1px solid var(--accent);padding:1px 5px;border-radius:3px;font-weight:700}
+label{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;margin-bottom:4px;flex-wrap:wrap}
+.label-tag{font-size:9px;background:var(--accent-glow);color:var(--accent);border:1px solid var(--accent);padding:1px 4px;border-radius:3px;font-weight:700}
 .label-tip{font-weight:400;color:var(--fg-subtle);font-size:10px;margin-left:auto}
 textarea,input[type=text]{width:100%;padding:7px 10px;background:var(--bg-input);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--fg);font-size:13px;font-family:inherit;resize:vertical;transition:border-color .2s}
 textarea:focus,input:focus{outline:none;border-color:var(--accent)}
-textarea{min-height:58px}
+textarea{min-height:54px}
 input.neg{border-color:var(--accent2)!important}
 input.neg:focus{border-color:var(--accent2)!important}
-.hint-text{font-size:10px;color:var(--fg-subtle);margin-top:4px}
 [data-mode]{display:none}
 [data-mode].active{display:block}
-.neg-section{margin-top:11px;padding-top:11px;border-top:1px dashed var(--border)}
-.section-title{font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
-.timeline-hint{background:rgba(247,111,154,.1);border:1px solid rgba(247,111,154,.3);border-radius:var(--radius-sm);padding:8px 11px;font-size:11px;color:var(--accent2);margin-bottom:11px}
-.timeline-row{display:grid;grid-template-columns:80px 1fr;gap:5px;margin-bottom:5px;align-items:center}
-.timeline-label{font-size:10px;font-weight:600;color:var(--accent);background:var(--bg-input);border:1px solid var(--border);border-radius:5px;padding:4px 6px;text-align:center}
+.neg-section{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+.section-title{font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px}
+.timeline-hint{background:rgba(247,111,154,.1);border:1px solid rgba(247,111,154,.3);border-radius:var(--radius-sm);padding:7px 10px;font-size:10px;color:var(--accent2);margin-bottom:10px}
+.timeline-row{display:grid;grid-template-columns:72px 1fr;gap:4px;margin-bottom:4px;align-items:center}
+.timeline-label{font-size:10px;font-weight:600;color:var(--accent);background:var(--bg-input);border:1px solid var(--border);border-radius:5px;padding:4px 5px;text-align:center}
 .timeline-row input{margin-bottom:0;min-height:auto}
-.output-panel{position:sticky;top:12px}
-.output-box{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:11px;min-height:90px;font-size:12px;line-height:1.8;white-space:pre-wrap;word-break:break-all;font-family:'PingFang SC',monospace;margin-bottom:9px;color:var(--fg)}
+.output-panel{position:sticky;top:10px}
+.output-box{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px;min-height:90px;font-size:12px;line-height:1.8;white-space:pre-wrap;word-break:break-all;font-family:monospace;margin-bottom:8px;color:var(--fg)}
 .output-box.empty{color:var(--fg-subtle);font-style:italic}
-.btn-row{display:flex;gap:6px}
-.btn{flex:1;padding:8px 11px;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.output-box .layer-label{color:var(--accent);font-weight:700;display:block;margin-top:6px}
+.output-box .user-val{color:var(--fg-muted)}
+.output-box .ai-val{color:#a8f0c6}
+.output-box .enhance-arrow{color:var(--fg-subtle);margin:0 4px}
+.output-box .ai-badge{font-size:9px;background:var(--accent);color:#fff;border-radius:3px;padding:0 4px;font-weight:700;margin-left:4px}
+.output-box .final-label{color:var(--accent);font-weight:700;display:block;margin-top:10px;border-top:1px dashed var(--border);padding-top:6px}
+.output-box .final-val{color:#a8f0c6}
+.output-box .neg-val{color:#ffb3c6}
+.output-box .neg-label{color:var(--accent2);font-weight:700;display:block;margin-top:6px}
+.btn-row{display:flex;gap:5px}
+.btn{flex:1;padding:7px 10px;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
 .btn-copy{background:var(--accent);color:#fff}
 .btn-copy:hover{background:#6a5ee6}
 .btn-copy.copied{background:#22c55e}
 .btn-clear{background:var(--bg-input);color:var(--fg-muted);border:1px solid var(--border)}
 .btn-clear:hover{border-color:var(--fg-muted);color:var(--fg)}
-.copy-feedback{font-size:11px;color:#22c55e;text-align:center;margin-top:6px;height:13px}
-.examples-section{margin-top:12px}
-.example-btn{width:100%;padding:7px 11px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg-muted);font-size:11px;cursor:pointer;text-align:left;margin-bottom:3px;transition:all .2s;font-family:inherit}
+.copy-feedback{font-size:11px;color:#22c55e;text-align:center;margin-top:5px;height:13px}
+.examples-section{margin-top:11px}
+.example-btn{width:100%;padding:6px 10px;background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--fg-muted);font-size:11px;cursor:pointer;text-align:left;margin-bottom:3px;transition:all .2s;font-family:inherit}
 .example-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
 .example-btn::before{content:'▶ ';font-size:9px;opacity:.5}
-.formula-panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-top:12px}
-.formula-title{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:9px}
-.formula-flow{display:flex;align-items:center;gap:3px;flex-wrap:wrap;margin-bottom:9px}
-.formula-chip{background:var(--bg-input);border:1px solid var(--border);border-radius:5px;padding:3px 7px;font-size:11px;font-weight:600}
-.formula-arrow{color:var(--fg-subtle);font-size:12px}
+.formula-panel{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius);padding:11px;margin-top:11px}
+.formula-title{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.formula-flow{display:flex;align-items:center;gap:3px;flex-wrap:wrap;margin-bottom:8px}
+.formula-chip{background:var(--bg-input);border:1px solid var(--border);border-radius:5px;padding:2px 6px;font-size:10px;font-weight:600}
+.formula-arrow{color:var(--fg-subtle);font-size:11px}
 .tips-grid{display:grid;gap:3px}
-.tip-item{display:flex;gap:6px;align-items:flex-start;font-size:11px;color:var(--fg-muted);padding:6px 8px;background:var(--bg-input);border-radius:5px}
-.tip-icon{color:var(--accent);flex-shrink:0;font-size:11px}
+.tip-item{display:flex;gap:5px;align-items:flex-start;font-size:10px;color:var(--fg-muted);padding:5px 7px;background:var(--bg-input);border-radius:5px}
+.tip-icon{color:var(--accent);flex-shrink:0;font-size:10px}
 details{margin-top:10px}
-summary{font-size:11px;font-weight:600;color:var(--fg-muted);cursor:pointer;padding:6px 0;list-style:none}
+summary{font-size:11px;font-weight:600;color:var(--fg-muted);cursor:pointer;padding:5px 0;list-style:none}
 summary::-webkit-details-marker{display:none}
-.ref-list{margin-top:6px;display:grid;gap:3px}
-.ref-item{padding:5px 8px;background:var(--bg-input);border-radius:5px;font-size:11px;color:var(--fg-muted)}
+.ref-list{margin-top:5px;display:grid;gap:2px}
+.ref-item{padding:4px 7px;background:var(--bg-input);border-radius:5px;font-size:10px;color:var(--fg-muted);line-height:1.5}
 .ref-item strong{color:var(--accent)}
-.ref-item.muted{color:var(--fg-subtle);font-size:10px}
-.word-tag{display:inline-block;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:1px 5px;font-size:10px;margin:1px;color:var(--fg)}
+.ref-item.muted{color:var(--fg-subtle);font-size:9px}
+.word-tag{display:inline-block;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;padding:1px 4px;font-size:10px;margin:1px;color:var(--fg)}
 .word-tag:hover{border-color:var(--accent);color:var(--accent)}
-.word-group{margin-bottom:6px}
-.word-group-title{font-size:10px;font-weight:700;color:var(--fg-muted);margin-bottom:4px;padding-left:2px}
+.word-group{margin-bottom:5px}
+.word-group-title{font-size:10px;font-weight:700;color:var(--fg-muted);margin-bottom:3px;padding-left:2px}
 </style>
 </head>
 <body>
 <header>
 <div class="badge">AI Video Generation</div>
 <h1>Seedance 2.0 Prompt 工坊</h1>
-<p class="subtitle">5层结构 · 时间轴分镜 · 运镜/灯光速查 · 官方案例</p>
+<p class="subtitle">5层结构 · AI润色 · 运镜/灯光速查 · 官方案例</p>
 </header>
 <div class="container">
 <div>
@@ -90,83 +98,78 @@ summary::-webkit-details-marker{display:none}
 <button class="mode-tab" onclick="switchMode('timeline')">时间轴分镜</button>
 </div>
 <div class="panel">
-<!-- TEXT -->
 <div data-mode="text" class="active">
 <div class="field"><label>主体 <span class="label-tag">第1层</span><span class="label-tip">越细越稳</span></label>
-<input type="text" id="t-subject" placeholder="例如：a woman in her late 20s, tight dark curls, small silver hoop in left ear, wearing fitted black turtleneck" oninput="build()"></div>
-<div class="field"><label>动作 <span class="label-tag">第2层</span><span class="label-tip">现在时态，一个主要运动，永远和镜头分开写</span></label>
-<textarea id="t-action" placeholder="例如：she slowly turns toward the camera, breeze lifting the hem of her skirt, eyes narrowing against the light" oninput="build()"></textarea></div>
-<div class="field"><label>镜头 <span class="label-tag">第3层</span><span class="label-tip">只选一个主导运镜，用节奏词描述</span></label>
-<input type="text" id="t-camera" placeholder="例如：slow dolly-in, gentle pan right, tracking shot" oninput="build()"></div>
-<div class="field"><label>风格（灯光+调色+氛围） <span class="label-tag">第4层</span><span class="label-tip">灯光描述影响最大</span></label>
-<input type="text" id="t-style" placeholder="例如：golden hour, cinematic film tone 35mm, teal and orange" oninput="build()"></div>
+<input type="text" id="t-subject" placeholder="例如：a woman in her late 20s, tight dark curls, silver hoop earrings, black turtleneck" oninput="onInput()"></div>
+<div class="field"><label>动作 <span class="label-tag">第2层</span><span class="label-tip">现在时态，一个主要运动</span></label>
+<textarea id="t-action" placeholder="例如：slowly turns toward camera, breeze lifting skirt hem, eyes narrowing against light" oninput="onInput()"></textarea></div>
+<div class="field"><label>镜头 <span class="label-tag">第3层</span><span class="label-tip">一个主导运镜，用节奏词</span></label>
+<input type="text" id="t-camera" placeholder="例如：slow dolly-in, tracking shot, handheld" oninput="onInput()"></div>
+<div class="field"><label>风格 <span class="label-tag">第4层</span><span class="label-tip">灯光描述影响最大</span></label>
+<input type="text" id="t-style" placeholder="例如：golden hour, cinematic film tone 35mm, teal and orange" oninput="onInput()"></div>
 <div class="field"><label>音效/音乐 <span class="label-tip">可选</span></label>
-<input type="text" id="t-audio" placeholder="例如：ambient sound, natural voice, epic orchestral" oninput="build()"></div>
+<input type="text" id="t-audio" placeholder="例如：ambient sound, natural voice" oninput="onInput()"></div>
 <div class="neg-section"><div class="section-title">⛔ 第5层：约束</div>
 <div class="field"><label>角色约束</label>
-<input type="text" class="neg" id="t-neg" placeholder="avoid jitter, avoid bent limbs, avoid identity drift, maintain face consistency" oninput="build()"></div>
+<input type="text" class="neg" id="t-neg" placeholder="avoid jitter, avoid bent limbs, avoid identity drift, maintain face consistency" oninput="onInput()"></div>
 <div class="field" style="margin-bottom:0"><label>质量后缀</label>
-<input type="text" class="neg" id="t-quality" placeholder="sharp clarity, natural colors, stable picture, no blur, no ghosting" oninput="build()"></div>
+<input type="text" class="neg" id="t-quality" placeholder="sharp clarity, natural colors, stable picture, no blur, no ghosting" oninput="onInput()"></div>
 </div></div>
-<!-- IMAGE -->
 <div data-mode="image">
 <div class="field"><label>引用图片 <span class="label-tag">必填</span></label>
-<input type="text" id="i-ref" value="@Image1" oninput="build()"></div>
+<input type="text" id="i-ref" value="@Image1" oninput="onInput()"></div>
 <div class="field"><label>主体身份 <span class="label-tip">多给细节避免漂移</span></label>
-<input type="text" id="i-identity" placeholder="描述外观、姿势、服装、皮肤细节" oninput="build()"></div>
-<div class="field"><label>主要动作 <span class="label-tag">必填</span><span class="label-tip">只写一个，不要中途改变主体</span></label>
-<input type="text" id="i-action" placeholder="slow 180 rotation, product held at chest level" oninput="build()"></div>
+<input type="text" id="i-identity" placeholder="描述外观、姿势、服装、配饰细节" oninput="onInput()"></div>
+<div class="field"><label>主要动作 <span class="label-tag">必填</span><span class="label-tip">只写一个</span></label>
+<input type="text" id="i-action" placeholder="slow 180 rotation, product at chest level" oninput="onInput()"></div>
 <div class="field"><label>运镜</label>
-<input type="text" id="i-camera" placeholder="soft push-in, controlled orbit, side tracking" oninput="build()"></div>
+<input type="text" id="i-camera" placeholder="soft push-in, controlled orbit" oninput="onInput()"></div>
 <div class="field"><label>灯光/风格</label>
-<input type="text" id="i-style" placeholder="natural daylight, rim light, clean commercial shadow floor" oninput="build()"></div>
+<input type="text" id="i-style" placeholder="natural daylight, rim light, clean commercial shadow" oninput="onInput()"></div>
 <div class="neg-section"><div class="section-title">⛔ 约束</div>
-<div class="field" style="margin-bottom:0"><input type="text" class="neg" id="i-neg" placeholder="no face drift, no finger artifacts, no product disappearance, no label blur" oninput="build()"></div>
+<div class="field" style="margin-bottom:0"><input type="text" class="neg" id="i-neg" placeholder="no face drift, no finger artifacts, no product disappearance, no label blur" oninput="onInput()"></div>
 </div></div>
-<!-- EDIT -->
 <div data-mode="edit">
 <div class="field"><label>原视频 <span class="label-tag">必填</span></label>
-<input type="text" id="ed-ref" value="@视频1" oninput="build()"></div>
+<input type="text" id="ed-ref" value="@视频1" oninput="onInput()"></div>
 <div class="field"><label>替换目标 <span class="label-tag">必填</span></label>
-<input type="text" id="ed-target" placeholder="将香水替换成" oninput="build()"></div>
+<input type="text" id="ed-target" placeholder="将香水替换成" oninput="onInput()"></div>
 <div class="field"><label>替换为</label>
-<input type="text" id="ed-with" placeholder="@图像1中的面霜" oninput="build()"></div>
-<div class="field" style="margin-bottom:0"><label>保持约束 <span class="label-tip">确保运镜和动作不变</span></label>
-<input type="text" id="ed-keep" placeholder="动作和运镜不变" oninput="build()"></div>
+<input type="text" id="ed-with" placeholder="@图像1中的面霜" oninput="onInput()"></div>
+<div class="field" style="margin-bottom:0"><label>保持约束</label>
+<input type="text" id="ed-keep" placeholder="动作和运镜不变" oninput="onInput()"></div>
 </div>
-<!-- EXTEND -->
 <div data-mode="extend">
 <div class="timeline-hint">精确描述镜头从哪移动到哪，穿过什么，场景如何过渡</div>
 <div class="field"><label>原视频 <span class="label-tag">必填</span></label>
-<input type="text" id="ex-ref" value="@视频1" oninput="build()"></div>
+<input type="text" id="ex-ref" value="@视频1" oninput="onInput()"></div>
 <div class="field"><label>延长目标 <span class="label-tag">必填</span></label>
-<textarea id="ex-goal" placeholder="自然衔接慢拉镜头匀速穿过厨房门，顺滑过渡到客厅" oninput="build()"></textarea></div>
-<div class="field"><label>运镜路径 <span class="label-tip">精确到每个过渡点</span></label>
-<input type="text" id="ex-camera" placeholder="慢拉→摇移→慢推→穿出" oninput="build()"></div>
+<textarea id="ex-goal" placeholder="自然衔接慢拉镜头穿过厨房门，顺滑过渡到客厅" oninput="onInput()"></textarea></div>
+<div class="field"><label>运镜路径</label>
+<input type="text" id="ex-camera" placeholder="慢拉→摇移→慢推→穿出" oninput="onInput()"></div>
 <div class="field"><label>场景元素</label>
-<input type="text" id="ex-elements" placeholder="融入红灯笼等新年元素" oninput="build()"></div>
+<input type="text" id="ex-elements" placeholder="融入红灯笼等新年元素" oninput="onInput()"></div>
 <div class="field"><label>物理约束</label>
-<input type="text" id="ex-physics" placeholder="人物比例符合现实世界物理规律" oninput="build()"></div>
+<input type="text" id="ex-physics" placeholder="人物比例符合现实世界物理规律" oninput="onInput()"></div>
 <div class="field" style="margin-bottom:0"><label>音效 <span class="label-tip">可选</span></label>
-<input type="text" id="ex-audio" placeholder="背景语音：'新春快乐，阖家幸福'" oninput="build()"></div>
+<input type="text" id="ex-audio" placeholder="背景语音：'新春快乐'" oninput="onInput()"></div>
 </div>
-<!-- TIMELINE -->
 <div data-mode="timeline">
-<div class="timeline-hint">用 [0-4s] [4-8s] [8-12s] [12-15s] 格式在单次15秒生成里导演多个镜头</div>
+<div class="timeline-hint">用 [0-4s] [4-8s] [8-12s] [12-15s] 在单次15秒内导演多个镜头</div>
 <div class="field"><label>整体风格/片头</label>
-<input type="text" id="tl-header" placeholder="cinematic film tone 35mm, warm golden hour lighting" oninput="build()"></div>
-<div class="timeline-row"><div class="timeline-label">[0-4s]</div><input type="text" id="tl-t1" placeholder="wide establishing shot, static camera, ambient sound" oninput="build()"></div>
-<div class="timeline-row"><div class="timeline-label">[4-8s]</div><input type="text" id="tl-t2" placeholder="medium shot, slow push-in, tension building" oninput="build()"></div>
-<div class="timeline-row"><div class="timeline-label">[8-12s]</div><input type="text" id="tl-t3" placeholder="close-up, emotional peak approaching" oninput="build()"></div>
-<div class="timeline-row"><div class="timeline-label">[12-15s]</div><input type="text" id="tl-t4" placeholder="extreme close-up or dramatic reveal, climax action" oninput="build()"></div>
+<input type="text" id="tl-header" placeholder="cinematic film tone 35mm, warm golden hour lighting" oninput="onInput()"></div>
+<div class="timeline-row"><div class="timeline-label">[0-4s]</div><input type="text" id="tl-t1" placeholder="wide establishing shot, static camera, ambient sound" oninput="onInput()"></div>
+<div class="timeline-row"><div class="timeline-label">[4-8s]</div><input type="text" id="tl-t2" placeholder="medium shot, slow push-in, tension building" oninput="onInput()"></div>
+<div class="timeline-row"><div class="timeline-label">[8-12s]</div><input type="text" id="tl-t3" placeholder="close-up, emotional peak, one detail in sharp focus" oninput="onInput()"></div>
+<div class="timeline-row"><div class="timeline-label">[12-15s]</div><input type="text" id="tl-t4" placeholder="extreme close-up or dramatic reveal, climax action" oninput="onInput()"></div>
 <div class="field"><label>音效/音乐 <span class="label-tip">可选</span></label>
-<input type="text" id="tl-audio" placeholder="beat-aligned transitions, ambient sound" oninput="build()"></div>
+<input type="text" id="tl-audio" placeholder="beat-aligned transitions, ambient sound" oninput="onInput()"></div>
 <div class="neg-section"><div class="section-title">⛔ 约束</div>
-<div class="field" style="margin-bottom:0"><input type="text" class="neg" id="tl-neg" placeholder="avoid jitter, avoid bent limbs, maintain face consistency, sharp clarity, stable picture" oninput="build()"></div>
+<div class="field" style="margin-bottom:0"><input type="text" class="neg" id="tl-neg" placeholder="avoid jitter, avoid bent limbs, maintain face consistency, sharp clarity, stable picture" oninput="onInput()"></div>
 </div></div>
 </div>
 <div class="examples-section">
-<div class="formula-title" style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">📂 官方案例（点击填充）</div>
+<div class="formula-title" style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px">📂 官方案例（点击填充全部字段）</div>
 <button class="example-btn" onclick="loadEx('ugc')">口播视频 UGC — 自然真实感</button>
 <button class="example-btn" onclick="loadEx('product')">产品英雄片 — 奢侈品牌质感</button>
 <button class="example-btn" onclick="loadEx('film')">电影感场景 — 木工 workshop</button>
@@ -177,8 +180,8 @@ summary::-webkit-details-marker{display:none}
 </div>
 <div>
 <div class="panel output-panel">
-<div class="formula-title">📋 生成的 Prompt</div>
-<div class="output-box empty" id="output">填充左侧表单，即可在右侧预览...</div>
+<div class="formula-title">📋 AI润色 Prompt</div>
+<div class="output-box empty" id="output">开始输入左侧内容，AI自动润色...</div>
 <div class="btn-row">
 <button class="btn btn-copy" id="copyBtn" onclick="copyPrompt()">📋 复制</button>
 <button class="btn btn-clear" onclick="clearAll()">清空</button>
@@ -195,106 +198,278 @@ summary::-webkit-details-marker{display:none}
 <span class="formula-chip">约束</span>
 </div>
 <div class="tips-grid">
-<div class="tip-item"><span class="tip-icon">⚡</span><span>一次只给一个主导运镜，不要同时要求 orbit + zoom + whip pan</span></div>
+<div class="tip-item"><span class="tip-icon">⚡</span><span>一次只给一个主导运镜，不要同时 orbit + zoom + whip pan</span></div>
 <div class="tip-item"><span class="tip-icon">🛡</span><span>主体运动和镜头运动永远分开写，否则模型不知道谁该转</span></div>
-<div class="tip-item"><span class="tip-icon">💡</span><span>灯光描述对质量影响最大，比风格形容词、quality modifier 都重要</span></div>
+<div class="tip-item"><span class="tip-icon">💡</span><span>灯光描述对质量影响最大，比风格形容词重要得多</span></div>
 <div class="tip-item"><span class="tip-icon">🎯</span><span>时间轴：用 [0-4s] [4-8s] [8-12s] [12-15s] 分段导演</span></div>
 <div class="tip-item"><span class="tip-icon">📉</span><span>结果不稳时只改一个变量，不要同时改所有东西</span></div>
-<div class="tip-item"><span class="tip-icon">🚫</span><span>避免：fast（单独用）、cinematic（单独用）、epic、amazing、glow/glimmer</span></div>
+<div class="tip-item"><span class="tip-icon">🚫</span><span>避免：fast（单独用）、cinematic（单独用）、epic、glow/glimmer</span></div>
 </div></div>
 <details><summary>📖 运镜速查</summary>
 <div class="ref-list">
-<div class="word-group"><div class="word-group-title">静态</div><span class="word-tag">fixed</span><span class="word-tag">locked-off</span><span class="word-tag">static wide</span><span class="word-tag">locked tripod</span></div>
-<div class="word-group"><div class="word-group-title">运动</div><span class="word-tag">push-in / dolly in</span><span class="word-tag">pull-out</span><span class="word-tag">pan left/right</span><span class="word-tag">tracking shot</span><span class="word-tag">orbit / 360° orbit</span><span class="word-tag">aerial / drone</span><span class="word-tag">handheld</span><span class="word-tag">gimbal</span><span class="word-tag">steadicam walk</span><span class="word-tag">whip pan</span><span class="word-tag">dolly zoom</span><span class="word-tag">rack focus</span><span class="word-tag">crane up/down</span></div>
-<div class="word-group"><div class="word-group-title">速度</div><span class="word-tag">imperceptible / barely</span><span class="word-tag">slow / gentle / gradual</span><span class="word-tag">smooth / controlled</span><span class="word-tag">dynamic / swift</span><span class="word-tag" style="border-color:var(--accent2);color:var(--accent2)">⚠️ fast 单独用会同时加速所有东西</span></div>
-<div class="ref-item muted">复合写法："start: slow dolly-in, then: gentle pan right for the final 2 seconds"</div>
+<div class="word-group"><div class="word-group-title">静态</div><span class="word-tag">fixed</span><span class="word-tag">locked-off</span><span class="word-tag">static wide</span></div>
+<div class="word-group"><div class="word-group-title">运动</div><span class="word-tag">push-in / dolly in</span><span class="word-tag">pull-out</span><span class="word-tag">pan left/right</span><span class="word-tag">tracking shot</span><span class="word-tag">orbit / 360 orbit</span><span class="word-tag">aerial</span><span class="word-tag">handheld</span><span class="word-tag">gimbal</span><span class="word-tag">steadicam walk</span><span class="word-tag">whip pan</span><span class="word-tag">dolly zoom</span><span class="word-tag">rack focus</span></div>
+<div class="word-group"><div class="word-group-title">速度</div><span class="word-tag">imperceptible</span><span class="word-tag">slow / gentle / gradual</span><span class="word-tag">smooth / controlled</span><span class="word-tag">dynamic / swift</span><span class="word-tag" style="border-color:var(--accent2);color:var(--accent2)">fast 单独用会同时加速所有东西</span></div>
+<div class="ref-item muted">复合："start: slow dolly-in, then: gentle pan right for the final 2 seconds"</div>
 </div></details>
 <details><summary>📖 灯光/调色速查</summary>
 <div class="ref-list">
 <div class="word-group"><div class="word-group-title">灯光</div><span class="word-tag">golden hour</span><span class="word-tag">rim light / dramatic rim light</span><span class="word-tag">soft key from 45 degrees</span><span class="word-tag">overcast daylight</span><span class="word-tag">backlit silhouette</span><span class="word-tag">motivated lighting</span><span class="word-tag">volumetric fog</span><span class="word-tag">chiaroscuro</span></div>
-<div class="word-group"><div class="word-group-title">调色</div><span class="word-tag">teal and orange</span><span class="word-tag">bleach bypass</span><span class="word-tag">warm tone</span><span class="word-tag">crushed blacks</span><span class="word-tag">pastel</span></div>
+<div class="word-group"><div class="word-group-title">调色</div><span class="word-tag">teal and orange</span><span class="word-tag">bleach bypass</span><span class="word-tag">warm tone / amber-tinted</span><span class="word-tag">crushed blacks</span><span class="word-tag">pastel</span></div>
 <div class="word-group"><div class="word-group-title">电影锚点</div><span class="word-tag">cinematic film tone, 35mm</span><span class="word-tag">16mm film, handheld</span><span class="word-tag">anamorphic lens flare</span><span class="word-tag">national geographic quality</span></div>
-<div class="ref-item muted">⚠️ glow/glimmer/glints 易出镜面闪烁，换成 steady intensity 或 diffuse</div>
+<div class="ref-item muted">glow/glimmer/glints 易出镜面闪烁，换成 steady intensity 或 diffuse</div>
 </div></details>
 <details><summary>📖 约束速查</summary>
 <div class="ref-list">
 <div class="word-group"><div class="word-group-title">角色必加</div><span class="word-tag">avoid jitter</span><span class="word-tag">avoid bent limbs</span><span class="word-tag">avoid identity drift</span><span class="word-tag">avoid temporal flicker</span><span class="word-tag">maintain face consistency</span></div>
 <div class="word-group"><div class="word-group-title">质量后缀</div><span class="word-tag">sharp clarity</span><span class="word-tag">natural colors</span><span class="word-tag">stable picture</span><span class="word-tag">no blur</span><span class="word-tag">no ghosting</span><span class="word-tag">no flickering</span></div>
-<div class="word-group"><div class="word-group-title">场景模板</div><div class="ref-item"><strong>电商：</strong>no logo distortion, no text artifacts, no packaging collapse</div><div class="ref-item"><strong>人物UGC：</strong>no extra fingers, no face drift, no lip mismatch</div><div class="ref-item"><strong>电影感：</strong>no shaky camera, no object melting, no muddy lighting</div></div>
+<div class="word-group"><div class="word-group-title">场景</div><div class="ref-item"><strong>电商：</strong>no logo distortion, no text artifacts, no packaging collapse</div><div class="ref-item"><strong>人物UGC：</strong>no extra fingers, no face drift, no lip mismatch</div><div class="ref-item"><strong>电影感：</strong>no shaky camera, no object melting, no muddy lighting</div></div>
 </div></details>
-<details><summary>📖 引用语法 & 首帧末帧</summary>
+<details><summary>📖 引用语法</summary>
 <div class="ref-list">
 <div class="ref-item"><strong>@Image1</strong> — 角色参考（保持面部和服装）</div>
 <div class="ref-item"><strong>@Image2</strong> — 环境参考（匹配灯光和色调）</div>
 <div class="ref-item"><strong>@视频1</strong> — 镜头运动参考（复刻慢速环绕）</div>
 <div class="ref-item"><strong>@音频1</strong> — 背景音乐（转场跟节拍对齐）</div>
-<div class="ref-item muted">首帧末帧插值：上传首帧作为 @Image1，末帧作为 @Image2，描述中间发生什么，Seedance 自动插值</div>
+<div class="ref-item muted">首帧末帧：首帧 @Image1 + 末帧 @Image2，Seedance 自动插值</div>
 </div></details>
 </div>
 </div>
+</div>
 <script>
-const EXAMPLES={
-ugc:{mode:'text',fields:{'t-subject':'a young woman with brown hair pulled back, natural skin with visible texture, wearing a casual grey t-shirt, in her cozy bedroom','t-action':'holds a product up to the camera with genuine excitement, quick jump cut slightly closer angle, she applies it showing the texture, leans into the camera with a natural smile','t-camera':'casual handheld selfie angle','t-style':'natural bedroom window lighting, soft daylight no ring light no filters','t-audio':'direct phone mic, room ambience, natural voice','t-neg':'','t-quality':''}},
-product:{mode:'text',fields:{'t-subject':'','t-action':'slow 180 rotation on turntable, cold condensation across the glass','t-camera':'fluid cinematic glide, macro dolly plus soft orbit plus gentle push-ins','t-style':'luxury product commercial, sharp clarity, volumetric lighting, premium minimalist background','t-audio':'','t-neg':'no jitter, no distortion, no logo blur, no cap drift','t-quality':'sharp clarity, stable picture, no ghosting'}},
-film:{mode:'text',fields:{'t-subject':'a man in his 40s with weathered features, wearing casual work clothes, seated at a wooden desk in a sun-drenched workshop, carefully carving walnut wood','t-action':'slow push-in from medium shot to close-up on his hands, dust motes float in the light beams from the window','t-camera':'slow push-in, steady controlled motion','t-style':'cinematic film tone 35mm, warm golden hour lighting, earthy color palette, shallow depth of field, background softly blurred','t-audio':'quiet ambient sound of wood shavings','t-neg':'avoid jitter, avoid bent limbs, stable picture, no temporal flicker','t-quality':'sharp clarity, natural colors, stable picture'}},
-action:{mode:'timeline',fields:{'tl-header':'high-intensity cinematic fight in a misty bamboo forest, 15 seconds, photorealistic','tl-t1':'wide establishing shot, static camera, mist rolling between bamboo stalks, golden hour light, two fighters face each other','tl-t2':'medium tracking shot, the fighter in white lunges forward with a spinning strike, fluid orbital tracking follows the motion','tl-t3':'low-angle power shot, impact moment slow motion, bamboo leaves scatter','tl-t4':'pull-out wide shot, the fighter in white stands victorious, rim light separating figure from mist, film grain, anamorphic texture','tl-audio':'','tl-neg':'avoid bent limbs, maintain face consistency','t-neg':'avoid jitter, avoid bent limbs, maintain face consistency, sharp clarity, stable picture'}},
-multi:{mode:'image',fields:{'i-ref':'@Image1 (角色参考) + @Image2 (环境参考) + @Video1 (镜头运动) + @Audio1 (音乐)','i-identity':'character from @Image1','i-action':'walks through the environment from @Image2, camera performs slow orbit matching @Video1 motion arc, scene transitions align with beat positions of @Audio1','i-camera':'slow orbit matching @Video1 motion arc','i-style':'golden hour rim lighting, shallow depth of field','i-neg':'avoid identity drift, avoid jitter, avoid temporal flicker, maintain character identity'}},
-timeline15:{mode:'timeline',fields:{'tl-header':'cinematic film tone 35mm, warm golden hour lighting','tl-t1':'wide shot, static, world established, ambient sound','tl-t2':'medium shot, slow push-in, tension building, subject prepares','tl-t3':'close-up, emotional peak approaching, one specific detail in sharp focus','tl-t4':'extreme close-up or dramatic reveal, climax action, slow motion or static hold, silence','tl-audio':'beat-aligned transitions','tl-neg':'avoid jitter, avoid bent limbs, maintain face consistency, sharp clarity, stable picture'}}
+// ─── Keyword dictionaries from the article ──────────────────────
+const CAMERA_MAP = {
+'slow':['slow dolly-in','slow dolly-out','slow push-in','slow tracking shot','gentle pan right'],
+'fast':['dynamic swift motion'],
+'happy':['genuine excitement, natural smile, eyes widening with delight'],
+'sad':['contemplative gaze, shoulders slightly dropped'],
+'close':['extreme close-up','close-up','tight framing'],
+'far':['wide shot','establishing shot','aerial view'],
+'rotate':['slow 180 rotation','controlled orbit','360 orbit'],
+'spin':['spinning motion, fluid movement'],
+'jump':['quick jump cut','dynamic jump cut'],
+'walk':['tracking shot','follow alongside','steadicam walk'],
+'run':['dynamic tracking shot, swift motion'],
+'turn':['slow turn toward camera','pivot smoothly'],
+'rise':['slow lift, ascending motion'],
+'fall':['slow motion fall, gravity-defying'],
 };
-let currentMode='text';
-function switchMode(m){
-currentMode=m;
-document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
-document.querySelectorAll('[data-mode]').forEach(d=>d.classList.remove('active'));
-document.querySelectorAll('.mode-tab')[['text','image','edit','extend','timeline'].indexOf(m)].classList.add('active');
-document.querySelector('[data-mode="'+m+'"]').classList.add('active');
-const f={'text':'主体→动作→运镜→风格→约束','image':'@引用图→主体身份→动作→运镜→风格→约束','edit':'@原视频→替换目标→替换为→保持约束','extend':'@原视频→延长目标→运镜→元素→约束','timeline':'片头→[0-4s]→[4-8s]→[8-12s]→[12-15s]→约束'};
-document.getElementById('formulaFlow').innerHTML=f[m].split('→').map(c=>`<span class="formula-chip">${c}</span><span class="formula-arrow">→</span>`).join('').replace(/<span class="formula-arrow">→<\/span>$/,'');
-build();
+
+const STYLE_MAP = {
+'day':['golden hour','soft daylight','overcast daylight'],
+'night':['low-light','dramatic shadow','high contrast chiaroscuro'],
+'warm':['warm tone','amber-tinted','golden light'],
+'cold':['cool tones','teal and orange'],
+'soft':['soft key light','diffused light','shallow depth of field'],
+'hard':['hard light, sharp shadows, high contrast'],
+'moody':['motivated lighting','volumetric fog','atmospheric depth'],
+'film':['cinematic film tone 35mm','16mm film grain'],
+'doc':['documentary-style handheld','national geographic quality'],
+'luxury':['rim light, sharp highlights, clean commercial shadow, premium minimal look'],
+'ugc':['natural indoor daylight, no ring light, no filters, authentic UGC pacing'],
+'pastel':['pastel tones, soft color palette'],
+'glow':['steady intensity, diffuse'],
+};
+
+const ACTION_MAP = {
+'look':['turns toward the camera, gaze shifts, eyes lock on'],
+'smile':['genuine smile, teeth slightly visible, warm expression, eyes crinkle naturally'],
+'talk':['speaks directly to camera, articulates clearly, natural conversational pace'],
+'walk':['walks toward camera, steps forward confidently'],
+'run':['bursts into motion, accelerates swiftly'],
+'hold':['holds object at chest level, grips with gentle pressure'],
+'turn':['pivots smoothly, rotates on axis'],
+'jump':['leaps with full extension, lands with controlled impact'],
+'spin':['spins with fluid momentum, arms extend outward'],
+'applaud':['claps with genuine enthusiasm'],
+'carve':['carefully carving, hands move with precision, dust motes float in light beams'],
+'applied':['applies it showing texture, jump cut slightly closer angle'],
+};
+
+const QUALITY_SUFFIXES = ['sharp clarity','natural colors','stable picture','no blur','no ghosting','no flickering','avoid jitter','avoid bent limbs','no temporal flicker','no distortion'];
+
+// ─── AI polisher ────────────────────────────────────────────────
+function enhance(raw, type) {
+    if (!raw || raw.length < 2) return '';
+    const lower = raw.toLowerCase();
+    let best = '';
+    let found = false;
+
+    const dict = type === 'camera' ? CAMERA_MAP : type === 'style' ? STYLE_MAP : ACTION_MAP;
+    for (const [k, vals] of Object.entries(dict)) {
+        if (lower.includes(k) && k.length > 2) {
+            for (const v of vals) {
+                const kw = v.split(',')[0].split(' ')[0].trim();
+                if (!lower.includes(kw)) {
+                    best = raw + ', ' + v;
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (found) break;
+    }
+    return best;
 }
-function loadEx(k){
-const ex=EXAMPLES[k];if(!ex)return;
-switchMode(ex.mode);
-Object.entries(ex.fields).forEach(([id,val])=>{const e=document.getElementById(id);if(e){e.value=val;e.dispatchEvent(new Event('input'));}});
+
+// ─── Render output ─────────────────────────────────────────────
+function render() {
+    const out = document.getElementById('output');
+    if (currentMode !== 'text') {
+        build(); return;
+    }
+
+    const subject = v('t-subject');
+    const action = v('t-action');
+    const camera = v('t-camera');
+    const style = v('t-style');
+    const audio = v('t-audio');
+    const neg = [v('t-neg'), v('t-quality')].filter(Boolean).join(', ');
+
+    const hasInput = subject || action || camera || style || audio || neg;
+    if (!hasInput) {
+        out.innerHTML = '开始输入左侧内容，AI自动润色...';
+        out.classList.add('empty');
+        return;
+    }
+    out.classList.remove('empty');
+
+    let html = '';
+
+    // Subject
+    const sEnh = enhance(subject, 'action');
+    if (subject) {
+        html += '<span class="layer-label">① SUBJECT 主体</span>';
+        if (sEnh) {
+            html += `<span class="user-val">${escHtml(subject)}</span><span class="enhance-arrow">→</span><span class="ai-val">${escHtml(sEnh)}</span><span class="ai-badge">AI+</span>`;
+        } else {
+            html += `<span class="ai-val">${escHtml(subject)}</span>`;
+        }
+    }
+
+    // Action
+    const aEnh = enhance(action, 'action');
+    if (action) {
+        html += '<span class="layer-label">② ACTION 动作</span>';
+        if (aEnh) {
+            html += `<span class="user-val">${escHtml(action)}</span><span class="enhance-arrow">→</span><span class="ai-val">${escHtml(aEnh)}</span><span class="ai-badge">AI+</span>`;
+        } else {
+            html += `<span class="ai-val">${escHtml(action)}</span>`;
+        }
+    }
+
+    // Camera
+    const cEnh = enhance(camera, 'camera');
+    if (camera) {
+        html += '<span class="layer-label">③ CAMERA 镜头</span>';
+        if (cEnh) {
+            html += `<span class="user-val">${escHtml(camera)}</span><span class="enhance-arrow">→</span><span class="ai-val">${escHtml(cEnh)}</span><span class="ai-badge">AI+</span>`;
+        } else {
+            html += `<span class="ai-val">${escHtml(camera)}</span>`;
+        }
+    }
+
+    // Style
+    const stEnh = enhance(style, 'style');
+    if (style) {
+        html += '<span class="layer-label">④ STYLE 风格/灯光</span>';
+        if (stEnh) {
+            html += `<span class="user-val">${escHtml(style)}</span><span class="enhance-arrow">→</span><span class="ai-val">${escHtml(stEnh)}</span><span class="ai-badge">AI+</span>`;
+        } else {
+            html += `<span class="ai-val">${escHtml(style)}</span>`;
+        }
+    }
+
+    // Audio
+    if (audio) {
+        html += '<span class="layer-label">⑤ AUDIO 音效</span>';
+        html += `<span class="ai-val">${escHtml(audio)}</span>`;
+    }
+
+    // Final merged output
+    html += '<span class="final-label">📋 最终 Prompt（可直接复制）</span>';
+    const parts = [subject || action ? (sEnh || subject || aEnh || action || '') : '', action && !sEnh ? (aEnh || action) : '', camera || cEnh ? (cEnh || camera) : '', style || stEnh ? (stEnh || style) : '', audio].filter(Boolean);
+    // Re-collect final properly
+    const finalParts = [];
+    if (subject) finalParts.push(sEnh || subject);
+    if (action) finalParts.push(aEnh || action);
+    if (camera) finalParts.push(cEnh || camera);
+    if (style) finalParts.push(stEnh || style);
+    if (audio) finalParts.push(audio);
+    html += `<span class="final-val">${escHtml(finalParts.join(', '))}</span>`;
+
+    if (neg) {
+        html += '<span class="neg-label">⛔ CONSTRAINTS 约束</span>';
+        html += `<span class="neg-val">${escHtml(neg)}</span>`;
+    }
+
+    out.innerHTML = html;
 }
-function v(id){return(document.getElementById(id)||{}).value.trim()||''}
-function build(){
-const out=document.getElementById('output');let r='';
-if(currentMode==='text'){
-const p=[v('t-subject'),v('t-action'),v('t-camera'),v('t-style'),v('t-audio')].filter(Boolean);
-r=p.join(', ');
-const neg=[v('t-neg'),v('t-quality')].filter(Boolean);
-if(neg.length)r+=(r?', ':'')+neg.join(', ');
-}else if(currentMode==='image'){
-const p=[v('i-ref'),v('i-identity'),v('i-action'),v('i-camera'),v('i-style')].filter(Boolean);
-r=p.join(', ');
-if(v('i-neg'))r+=(r?', ':'')+v('i-neg');
-}else if(currentMode==='edit'){
-r=[v('ed-target'),v('ed-with'),v('ed-keep')].filter(Boolean).join('，');
-if(v('ed-ref'))r=v('ed-ref')+'，'+r;
-}else if(currentMode==='extend'){
-const p=[v('ex-goal'),v('ex-camera'),v('ex-elements'),v('ex-physics'),v('ex-audio')].filter(Boolean).join('。');
-r=v('ex-ref')+'，'+p;
-}else if(currentMode==='timeline'){
-const segs=[];
-['tl-t1','tl-t2','tl-t3','tl-t4'].forEach((id,i)=>{const txt=v(id);if(txt)segs.push(`[${['0-4s','4-8s','8-12s','12-15s'][i]}]: ${txt}`);});
-r=(v('tl-header')?v('tl-header')+', ':'')+segs.join(', ');
-if(v('tl-audio'))r+=(r?', ':'')+v('tl-audio');
-if(v('tl-neg'))r+=(r?', ':'')+v('tl-neg');
+
+function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
-if(r){out.textContent=r;out.classList.remove('empty');}else{out.textContent='填充左侧表单，即可在右侧预览...';out.classList.add('empty');}
+
+// ─── Build (non-text modes) ────────────────────────────────────
+function build() {
+    const out = document.getElementById('output');
+    let r = '';
+    if (currentMode === 'image') {
+        const p = [v('i-ref'), v('i-identity'), v('i-action'), v('i-camera'), v('i-style')].filter(Boolean);
+        r = p.join(', ');
+        if (v('i-neg')) r += (r ? ', ' : '') + v('i-neg');
+    } else if (currentMode === 'edit') {
+        const p = [    } else if (currentMode === 'edit') {
+        const p = [v('ed-target'), v('ed-with'), v('ed-keep')].filter(Boolean);
+        r = p.join('，');
+        if (v('ed-ref')) r = v('ed-ref') + '，' + r;
+    } else if (currentMode === 'extend') {
+        const g = [v('ex-goal'), v('ex-camera'), v('ex-elements'), v('ex-physics'), v('ex-audio')].filter(Boolean).join('。');
+        r = v('ex-ref') + '，' + g;
+    } else if (currentMode === 'timeline') {
+        const segs = [];
+        ['tl-t1','tl-t2','tl-t3','tl-t4'].forEach(function(id,i){
+            const txt = v(id);
+            if (txt) segs.push('[' + ['0-4s','4-8s','8-12s','12-15s'][i] + ']: ' + txt);
+        });
+        const header = v('tl-header');
+        r = (header ? header + ', ' : '') + segs.join(', ');
+        if (v('tl-audio')) r += (r ? ', ' : '') + v('tl-audio');
+        if (v('tl-neg')) r += (r ? ', ' : '') + v('tl-neg');
+    }
+    if (!r) {
+        out.innerHTML = '开始输入左侧内容...';
+        out.classList.add('empty');
+    } else {
+        out.classList.remove('empty');
+        out.innerHTML = '<span class="final-val">' + esc(r) + '</span>';
+    }
 }
-function copyPrompt(){
-const t=document.getElementById('output').textContent;
-if(!t||document.getElementById('output').classList.contains('empty'))return;
-navigator.clipboard.writeText(t).then(()=>{
-const btn=document.getElementById('copyBtn'),fb=document.getElementById('copyFeedback');
-btn.textContent='✅ 已复制';btn.classList.add('copied');fb.textContent='已复制到剪贴板';
-setTimeout(()=>{btn.textContent='📋 复制';btn.classList.remove('copied');fb.textContent='';},2000);
-});}
-function clearAll(){
-document.querySelectorAll('input[type=text], textarea').forEach(e=>{e.value='';e.dispatchEvent(new Event('input'));});}
-build();
+
+function copyPrompt() {
+    var t = document.getElementById('output').textContent;
+    if (!t || document.getElementById('output').classList.contains('empty')) return;
+    navigator.clipboard.writeText(t).then(function() {
+        var btn = document.getElementById('copyBtn'), fb = document.getElementById('copyFeedback');
+        btn.textContent = '✅ 已复制';
+        btn.classList.add('copied');
+        fb.textContent = '已复制到剪贴板';
+        setTimeout(function() {
+            btn.textContent = '📋 复制';
+            btn.classList.remove('copied');
+            fb.textContent = '';
+        }, 2000);
+    });
+}
+
+function clearAll() {
+    document.querySelectorAll('input[type=text], textarea').forEach(function(e) {
+        e.value = '';
+        e.dispatchEvent(new Event('input'));
+    });
+}
+
+onInput();
 </script>
 </body>
 </html>
