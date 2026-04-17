@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seedance 2.0 Prompt 工坊</title>
+    <style>
+        :root {
+            --bg: #0d0d12;
+            --bg-surface: #16161d;
+            --bg-card: #1e1e28;
+            --bg-input: #252532;
+            --fg: #e8e4f0;
+            --fg-muted: #7a7890;
+            --fg-subtle: #4a4860;
+            --accent: #7c6ff7;
+            --accent2: #f76f9a;
+            --accent-glow: rgba(124, 111, 247, 0.2);
+            --border: #2e2e3e;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 32px 24px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(124,111,247,0.08) 0%, transparent 100%);
+        }
+        .badge {
+            display: inline-block;
+            background: var(--accent-glow);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: clamp(20px, 4vw, 30px);
+            font-weight: 700;
+            background: linear-gradient(135deg, #e8e4f0 0%, #a89ef7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+        .subtitle { color: var(--fg-muted); font-size: 13px; }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 16px 60px;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 20px;
+            align-items: start;
+        }
+        @media (max-width: 820px) { .container { grid-template-columns: 1fr; } }
+
+        .mode-tabs {
+            display: flex;
+            gap: 6px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 6px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .mode-tab {
+            flex: 1;
+            min-width: 90px;
+            padding: 8px 10px;
+            border: none;
+            background: transparent;
+            color: var(--fg-muted);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .mode-tab:hover { color: var(--fg); background: var(--bg-input); }
+        .mode-tab.active { background: var(--accent); color: #fff; }
+
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+
+        .field { margin-bottom: 16px; }
+        .field:last-child { margin-bottom: 0; }
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+            flex-wrap: wrap;
+        }
+        .label-tag {
+            font-size: 10px;
+            background: var(--accent-glow);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .label-tip {
+            font-weight: 400;
+            color: var(--fg-subtle);
+            font-size: 11px;
+            margin-left: auto;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 9px 12px;
+            background: var(--bg-input);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--fg);
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+        textarea:focus, input:focus { outline: none; border-color: var(--accent); }
+        textarea { min-height: 68px; }
+        input.neg { border-color: var(--accent2) !important; }
+        input.neg:focus { border-color: var(--accent2) !important; }
+        .hint-text { font-size: 11px; color: var(--fg-subtle); margin-top: 5px; }
+
+        /* sections within mode panels */
+        [data-mode] { display: none; }
+        [data-mode].active { display: block; }
+
+        .neg-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+        }
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent2);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .timeline-hint {
+            background: rgba(247,111,154,0.1);
+            border: 1px solid rgba(247,111,154,0.3);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            font-size: 12px;
+            color: var(--accent2);
+            margin-bottom: 14px;
+        }
+
+        /* Output */
+        .output-panel { position: sticky; top: 16px; }
+        .output-box {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            min-height: 110px;
+            font-size: 13px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-family: 'PingFang SC', monospace;
+            margin-bottom: 12px;
+            color: var(--fg);
+        }
+        .output-box.empty { color: var(--fg-subtle); font-style: italic; }
+        .btn-row { display: flex; gap: 8px; }
+        .btn {
+            flex: 1;
+            padding: 10px 14px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-copy { background: var(--accent); color: #fff; }
+        .btn-copy:hover { background: #6a5ee6; }
+        .btn-copy.copied { background: #22c55e; }
+        .btn-clear { background: var(--bg-input); color: var(--fg-muted); border: 1px solid var(--border); }
+        .btn-clear:hover { border-color: var(--fg-muted); color: var(--fg); }
+        .copy-feedback {
+            font-size: 12px; color: #22c55e; text-align: center;
+            margin-top: 8px; height: 16px; transition: opacity 0.3s;
+        }
+
+        /* Examples */
+        .examples-section { margin-top: 16px; }
+        .example-btn {
+            width: 100%;
+            padding: 9px 14px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--fg-muted);
+            font-size: 13px;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 5px;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .example-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+        .example-btn::before { content: '▶ '; font-size: 10px; opacity: 0.5; margin-right: 4px; }
+
+        /* Formula */
+        .formula-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            margin-top: 16px;
+        }
+        .formula-title {
+            font-size: 11px; font-weight: 700; color: var(--accent);
+            letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;
+        }
+        .formula-flow {
+            display: flex; align-items: center; gap: 5px;
+            flex-wrap: wrap; margin-bottom: 12px;
+        }
+        .formula-chip {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 9px;
+            font-size: 12px; font-weight: 600;
+        }
+        .formula-arrow { color: var(--fg-subtle); font-size: 14px; }
+        .tips-grid { display: grid; gap: 5px; }
+        .tip-item {
+            display: flex; gap: 8px; align-items: flex-start;
+            font-size: 12px; color: var(--fg-muted);
+            padding: 7px 10px; background: var(--bg-input);
+            border-radius: 6px;
+        }
+        .tip-icon { color: var(--accent); flex-shrink: 0; font-size: 13px; }
+
+        details { margin-top: 14px; }
+        summary {
+            font-size: 13px; font-weight: 600; color: var(--fg-muted);
+            cursor: pointer; padding: 8px 0; list-style: none;
+        }
+        summary::-webkit-details-marker { display: none; }
+        .ref-list { margin-top: 8px; display: grid; gap: 4px; }
+        .ref-item {
+            padding: 7px 10px; background: var(--bg-input);
+            border-radius: 6px; font-size: 12px; color: var(--fg-muted);
+        }
+        .ref-item strong { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="badge">AI Video Generation</div>
+    <h1>Seedance 2.0 Prompt 工坊</h1>
+    <p class="subtitle">结构化提示词生成 · 官方案例模板 · 一键复制</p>
+</header>
+
+<div class="container">
+    <!-- LEFT: Builder -->
+    <div>
+        <div class="mode-tabs">
+            <button class="mode-tab active" onclick="switchMode('text')">文生视频</button>
+            <button class="mode-tab" onclick="switchMode('image')">图生视频</button>
+            <button class="mode-tab" onclick="switchMode('edit')">视频编辑</button>
+            <button class="mode-tab" onclick="switchMode('extend')">视频延长</button>
+        </div>
+
+        <div class="panel">
+
+            <!-- TEXT-TO-VIDEO -->
+            <div data-mode="text" class="active">
+                <div class="field">
+                    <label>风格定义 <span class="label-tag">必填</span><span class="label-tip">开头第一句</span></label>
+                    <input type="text" id="text-style" placeholder="例如：电影级品牌概念视频，强节奏bgm驱动" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>时间线控制 <span class="label-tip">用「0～4秒」分段</span></label>
+                    <textarea id="text-timeline" placeholder="0～4秒，...&#10;5～12秒，..." oninput="buildPrompt()"></textarea>
+                </div>
+                <div class="field">
+                    <label>主体描述</label>
+                    <input type="text" id="text-subject" placeholder="例如：羚羊跨过山涧远景慢动作" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>运镜方式 <span class="label-tip">选一种主导运镜，不要叠加</span></label>
+                    <input type="text" id="text-camera" placeholder="例如：slow dolly-in, side tracking shot" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>灯光与氛围</label>
+                    <input type="text" id="text-lighting" placeholder="例如：柔和自然光，低饱和色彩" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>音效与音乐 <span class="label-tip">可选</span></label>
+                    <input type="text" id="text-audio" placeholder="例如：环境声与低频心跳声铺底" oninput="buildPrompt()">
+                </div>
+                <div class="neg-section">
+                    <div class="section-title">⛔ Negative Prompt（防翻车约束）</div>
+                    <div class="field">
+                        <label>约束条件 <span class="label-tip">comma-separated</span></label>
+                        <input type="text" class="neg" id="text-neg" placeholder="例如：no shaky camera, no extra fingers" oninput="buildPrompt()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- IMAGE-TO-VIDEO -->
+            <div data-mode="image">
+                <div class="field">
+                    <label>引用图片 <span class="label-tag">必填</span><span class="label-tip">@Image1 格式</span></label>
+                    <input type="text" id="img-ref" value="@Image1" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>主体身份 <span class="label-tip">保持一致性</span></label>
+                    <input type="text" id="img-identity" placeholder="例如：creator speaking directly to camera" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>主要动作 <span class="label-tag">必填</span><span class="label-tip">只描述一个动作</span></label>
+                    <input type="text" id="img-action" placeholder="例如：slow 180 rotation, product at chest level" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>运镜方式</label>
+                    <input type="text" id="img-camera" placeholder="例如：soft push-in, side tracking shot" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>灯光与风格</label>
+                    <input type="text" id="img-style" placeholder="例如：natural daylight, clean commercial shadow" oninput="buildPrompt()">
+                </div>
+                <div class="neg-section">
+                    <div class="section-title">⛔ Negative Prompt</div>
+                    <div class="field">
+                        <input type="text" class="neg" id="img-neg" placeholder="例如：no face drift, no finger artifacts, no product disappearance" oninput="buildPrompt()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIDEO EDITING -->
+            <div data-mode="edit">
+                <div class="field">
+                    <label>原视频 <span class="label-tag">必填</span></label>
+                    <input type="text" id="edit-ref" value="@视频1" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>替换目标 <span class="label-tag">必填</span></label>
+                    <input type="text" id="edit-target" placeholder="例如：将香水替换成" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>替换为</label>
+                    <input type="text" id="edit-with" placeholder="例如：@图像1中的面霜" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>保持约束 <span class="label-tip">确保运镜和动作不变</span></label>
+                    <input type="text" id="edit-keep" placeholder="例如：动作和运镜不变" oninput="buildPrompt()">
+                </div>
+            </div>
+
+            <!-- VIDEO EXTEND -->
+            <div data-mode="extend">
+                <div class="timeline-hint">
+                    核心：精确描述镜头从哪移动到哪，穿过什么，场景如何过渡
+                </div>
+                <div class="field">
+                    <label>原视频 <span class="label-tag">必填</span></label>
+                    <input type="text" id="ext-ref" value="@视频1" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>延长目标 <span class="label-tag">必填</span></label>
+                    <textarea id="ext-goal" placeholder="自然衔接慢拉镜头匀速穿过厨房门，顺滑过渡到客厅" oninput="buildPrompt()"></textarea>
+                </div>
+                <div class="field">
+                    <label>运镜路径 <span class="label-tip">精确到每个过渡点</span></label>
+                    <input type="text" id="ext-camera" placeholder="例如：慢拉→摇移→慢推→穿出" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>场景元素</label>
+                    <input type="text" id="ext-elements" placeholder="融入红灯笼等新年元素" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>物理约束</label>
+                    <input type="text" id="ext-physics" placeholder="人物比例符合现实世界物理规律" oninput="buildPrompt()">
+                </div>
+                <div class="field">
+                    <label>音效 <span class="label-tip">可选</span></label>
+                    <input type="text" id="ext-audio" placeholder="背景语音：'新春快乐，阖家幸福'" oninput="buildPrompt()">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="examples-section">
+            <div class="formula-title">📂 官方案例（点击填充）</div>
+            <button class="example-btn" onclick="loadExample('ex1')">诗意品牌概念视频 — 自然光影风格</button>
+            <button class="example-btn" onclick="loadExample('ex2')">快节奏蒙太奇 — 科技震撼风格</button>
+            <button class="example-btn" onclick="loadExample('ex3')">人文纪录片 — 全球多样性</button>
+            <button class="example-btn" onclick="loadExample('ex4')">Creator 产品评测</button>
+            <button class="example-btn" onclick="loadExample('ex5')">产品 Hero Shot</button>
+        </div>
+    </div>
+
+    <!-- RIGHT: Output -->
+    <div>
+        <div class="panel output-panel">
+            <div class="formula-title">📋 生成的 Prompt</div>
+            <div class="output-box empty" id="output">填充左侧表单，即可在此预览 prompt 结构...</div>
+            <div class="btn-row">
+                <button class="btn btn-copy" id="copyBtn" onclick="copyPrompt()">📋 复制</button>
+                <button class="btn btn-clear" onclick="clearAll()">清空</button>
+            </div>
+            <div class="copy-feedback" id="copyFeedback"></div>
+        </div>
+
+        <div class="formula-panel">
+            <div class="formula-title">🧠 核心公式</div>
+            <div class="formula-flow" id="formulaFlow">
+                <span class="formula-chip">主体</span><span class="formula-arrow">→</span>
+                <span class="formula-chip">动作</span><span class="formula-arrow">→</span>
+                <span class="formula-chip">运镜</span><span class="formula-arrow">→</span>
+                <span class="formula-chip">风格</span><span class="formula-arrow">→</span>
+                <span class="formula-chip">约束</span>
+            </div>
+            <div class="tips-grid">
+                <div class="tip-item"><span class="tip-icon">⚡</span><span>一次只给一个主导运镜，不要同时要求 orbit + zoom + whip pan</span></div>
+                <div class="tip-item"><span class="tip-icon">🛡</span><span>不明确保护手部/面部/标签，模型不会主动保护</span></div>
+                <div class="tip-item"><span class="tip-icon">🎯</span><span>时间线分段：用「0～4秒」「5～12秒」精确控制节奏</span></div>
+                <div class="tip-item"><span class="tip-icon">🔁</span><span>频繁出现「same face」→ 该用图生视频而不是纯文本</span></div>
+                <div class="tip-item"><span class="tip-icon">📉</span><span>结果不稳时，先缩小任务再逐步加复杂度</span></div>
+            </div>
+        </div>
+
+        <details>
+            <summary>📖 运镜速查表</summary>
+            <div class="ref-list">
+                <div class="ref-item"><strong>慢推</strong>：slow dolly-in / push-in</div>
+                <div class="ref-item"><strong>慢拉</strong>：slow dolly-out / pull-out</div>
+                <div class="ref-item"><strong>侧跟</strong>：side tracking shot</div>
+                <div class="ref-item"><strong>环绕</strong>：controlled orbit / 360° orbit</div>
+                <div class="ref-item"><strong>摇移</strong>：pan / tilt</div>
+                <div class="ref-item"><strong>俯视</strong>：aerial shot / bird's-eye view</div>
+                <div class="ref-item"><strong>微距</strong>：macro shot / extreme close-up</div>
+                <div class="ref-item"><strong>延时</strong>：timelapse</div>
+                <div class="ref-item"><strong>慢动作</strong>：slow motion / super slow-mo</div>
+                <div class="ref-item"><strong>手持</strong>：handheld（轻微抖动）</div>
+            </div>
+        </details>
+
+        <details>
+            <summary>📖 Negative Prompt 场景模板</summary>
+            <div class="ref-list">
+                <div class="ref-item"><strong>电商产品</strong>：no logo distortion, no text artifacts, no packaging collapse</div>
+                <div class="ref-item"><strong>人物/UGC</strong>：no extra fingers, no face drift, no lip mismatch</div>
+                <div class="ref-item"><strong>电影感</strong>：no shaky camera, no object melting, no muddy lighting</div>
+                <div class="ref-item"><strong>品牌KV</strong>：no logo distortion, no extra fingers, no shaky camera</div>
+            </div>
+        </details>
+    </div>
+</div>
+
+<script>
+const EXAMPLES = {
+    ex1: {
+        mode: 'text',
+        fields: {
+            'text-style': '电影级品牌KV概念视频，无具体产品，无人物对话，诗意叙事与高级自然光影风格，慢节奏到逐渐震撼，环境声与低频心跳声铺底。',
+            'text-timeline': '破晓时分，天空由深蓝过渡为金色，第一缕阳光穿透云层与薄雾，山脉被点亮，空气中微粒漂浮，世界仿佛刚刚苏醒。\n微距特写，一枚鸟蛋轻轻震动，蛋壳缓慢裂开，小鸟破壳而出，羽毛湿润颤动，生命第一次呼吸。\n嫩芽顶开泥土，露珠滚落，藤蔓快速生长，花朵绽放，时间流逝加速，万物向光而生。\n风穿过草原，大片草浪起伏翻涌，种子被吹向天空，随风旋转，像星群般散开。\n薄雾在林间缓慢流动，第一束阳光穿过树叶缝隙落在地面。\n高空俯视海岸线，第一道潮水涌向沙滩，阳光在水面铺展开来。',
+            'text-subject': '', 'text-camera': '', 'text-lighting': '', 'text-audio': '环境声与低频心跳声铺底',
+            'text-neg': 'no shaky camera, no extra limbs, no watermark, no text'
+        }
+    },
+    ex2: {
+        mode: 'text',
+        fields: {
+            'text-style': '电影级品牌概念视频，强节奏bgm驱动，快切蒙太奇+慢动作+微距+延时摄影结合，极具震撼感、速度感与科技感。整体无对白，仅鼓点节拍、低频心跳，呼吸声、水声与环境声。',
+            'text-timeline': '0～4秒，肉眼难以看到的微观与隐藏世界，极致微距与时间操控质感：超微距水滴落下瞬间爆裂成皇冠水花；雪花冰晶向外蔓延生长；花粉在空气中漂浮形成粒子轨迹；蝴蝶振翅鳞粉飞散慢动作，伴随振翅声音。\n5～12秒，节拍突然加强：羚羊跨过山涧远景慢动作；自由泳高速划防水花炸裂；专业潜水员在海底与鲸和鱼群共舞；滑雪高速掠过，雪雾飞起。\n13～15秒，突然出现极致微距婴儿人眼特写，眼睛突然睁开，柔和电影光。声音只剩心跳。',
+            'text-subject': '', 'text-camera': '', 'text-lighting': '', 'text-audio': '强节奏bgm，鼓点节拍、低频心跳',
+            'text-neg': 'no shaky camera, no extra fingers, no object melting, no watermark'
+        }
+    },
+    ex3: {
+        mode: 'text',
+        fields: {
+            'text-style': '电影级人文纪录片风格，真实纪实摄影，手持跟拍与长焦抓拍结合，自然光，低饱和色彩，胶片颗粒质感。所有人物均为普通素人原创随机面孔，必须平均分布全球多样性。',
+            'text-timeline': '采用固定快闪顺序剪辑：1.非洲草原 2.中国渔村 3.英国街头 4.巴西贫民区屋顶 5.中东沙漠 6.日本城市 7.北美街区 8.东南亚市场 9.北欧海岸 10.多族群混合城市夜景——每个镜头1秒快闪。\n插入微距细节：笑容、手掌纹理、布料摆动、阳光穿尘。节奏由慢到快再到舒缓。',
+            'text-subject': '', 'text-camera': '手持跟拍与长焦抓拍结合',
+            'text-lighting': '自然光，低饱和色彩，胶片颗粒质感', 'text-audio': '无对白，仅环境声与史诗氛围音乐',
+            'text-neg': 'no shaky camera, no extra fingers, no watermark, no text'
+        }
+    },
+    ex4: {
+        mode: 'image',
+        fields: {
+            'img-ref': '@Image1',
+            'img-identity': 'creator speaking directly to camera',
+            'img-action': 'holds the product at chest level, subtle hand gesture',
+            'img-camera': 'stable front-facing, subtle ring-light catchlight',
+            'img-style': 'authentic UGC pacing, natural indoor daylight',
+            'img-neg': 'no finger artifacts, no eye drift, no shaky framing, no face drift'
+        }
+    },
+    ex5: {
+        mode: 'image',
+        fields: {
+            'img-ref': '@Image1',
+            'img-identity': 'beverage bottle, center frame',
+            'img-action': 'cold condensation across the glass, slow 180 rotation on turntable',
+            'img-camera': 'heroic push-in, overhead-to-front angle',
+            'img-style': 'sharp cool highlights, premium beverage ad tone, clean commercial shadow floor',
+            'img-neg': 'no label blur, no cap drift, no warped glass, no condensation disappearing'
+        }
+    }
+};
+
+function switchMode(mode) {
+    document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('[data-mode]').forEach(d => d.classList.remove('active'));
+    const idx = ['text','image','edit','extend'].indexOf(mode);
+    document.querySelectorAll('.mode-tab')[idx].classList.add('active');
+    document.querySelector('[data-mode="'+mode+'"]').classList.add('active');
+
+    const formulaMap = {
+        text:    '风格定义→场景/主体→运镜→灯光氛围→音效→约束',
+        image:   '@引用图→主体身份→单一动作→运镜→风格→约束',
+        edit:    '@原视频→替换目标→替换为→保持约束',
+        extend:  '@原视频→延长目标→运镜路径→场景元素→约束'
+    };
+    const chips = formulaMap[mode].split('→');
+    document.getElementById('formulaFlow').innerHTML =
+        chips.map(c => `<span class="formula-chip">${c}</span><span class="formula-arrow">→</span>`).join('')
+        .replace(/<span class="formula-arrow">→<\/span>$/, '');
+
+    buildPrompt();
+}
+
+function loadExample(key) {
+    const ex = EXAMPLES[key];
+    if (!ex) return;
+    switchMode(ex.mode);
+    Object.entries(ex.fields).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) { el.value = val; el.dispatchEvent(new Event('input')); }
+    });
+}
+
+function buildPrompt() {
+    const out = document.getElementById('output');
+    let result = '';
+
+    if (currentMode === 'text') {
+        const parts = [
+            val('text-style'),
+            val('text-timeline'),
+            val('text-subject'),
+            val('text-camera'),
+            val('text-lighting'),
+            val('text-audio')
+        ].filter(Boolean);
+        result = parts.join('。');
+        const neg = val('text-neg');
+        if (neg) result += (result ? '。' : '') + neg;
+    }
+    else if (currentMode === 'image') {
+        const parts = [
+            val('img-ref'),
+            val('img-identity'),
+            val('img-action'),
+            val('img-camera'),
+            val('img-style')
+        ].filter(Boolean);
+        result = parts.join(', ');
+        const neg = val('img-neg');
+        if (neg) result += (result ? ', ' : '') + neg;
+    }
+    else if (currentMode === 'edit') {
+        const parts = [val('edit-target'), val('edit-with'), val('edit-keep')].filter(Boolean);
+        result = val('edit-ref') + '，' + parts.join('，');
+    }
+    else if (currentMode === 'extend') {
+        const parts = [
+            val('ext-goal'),
+            val('ext-camera'),
+            val('ext-elements'),
+            val('ext-physics'),
+            val('ext-audio')
+        ].filter(Boolean);
+        result = val('ext-ref') + '，' + parts.join('。');
+    }
+
+    if (result) {
+        out.textContent = result;
+        out.classList.remove('empty');
+    } else {
+        out.textContent = '填充左侧表单，即可在此预览 prompt 结构...';
+        out.classList.add('empty');
+    }
+}
+
+function val(id) { return (document.getElementById(id)||{}).value.trim() || ''; }
+
+function copyPrompt() {
+    const text = document.getElementById('output').textContent;
+    if (!text || document.getElementById('output').classList.contains('empty')) return;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const fb = document.getElementById('copyFeedback');
+        btn.textContent = '✅ 已复制';
+        btn.classList.add('copied');
+        fb.textContent = '已复制到剪贴板';
+        setTimeout(() => {
+            btn.textContent = '📋 复制';
+            btn.classList.remove('copied');
+            fb.textContent = '';
+        }, 2000);
+    });
+}
+
+function clearAll() {
+    document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+        el.value = '';
+        el.dispatchEvent(new Event('input'));
+    });
+}
+
+let currentMode = 'text';
+buildPrompt();
+</script>
+</body>
+</html>
