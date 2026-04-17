@@ -52,6 +52,8 @@ input.neg:focus{border-color:var(--accent2)!important}
 .btn-row{display:flex;gap:5px}
 .btn{flex:1;padding:7px 10px;border:none;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
 .btn-copy{background:var(--accent);color:#fff}
+.btn-polish{background:#f0a500;color:#fff}
+.btn-polish:hover{background:#d4920a}
 .btn-copy:hover{background:#6a5ee6}
 .btn-copy.copied{background:#22c55e}
 .btn-clear{background:var(--bg-input);color:var(--fg-muted);border:1px solid var(--border)}
@@ -183,6 +185,7 @@ summary::-webkit-details-marker{display:none}
 <div class="formula-title">📋 AI润色 Prompt</div>
 <div class="output-box empty" id="output">开始输入左侧内容，AI自动润色...</div>
 <div class="btn-row">
+<button class="btn btn-polish" id="polishBtn" onclick="polishPrompt()">✨ 润色</button>
 <button class="btn btn-copy" id="copyBtn" onclick="copyPrompt()">📋 复制</button>
 <button class="btn btn-clear" onclick="clearAll()">清空</button>
 </div>
@@ -427,7 +430,6 @@ function build() {
         r = p.join(', ');
         if (v('i-neg')) r += (r ? ', ' : '') + v('i-neg');
     } else if (currentMode === 'edit') {
-        const p = [    } else if (currentMode === 'edit') {
         const p = [v('ed-target'), v('ed-with'), v('ed-keep')].filter(Boolean);
         r = p.join('，');
         if (v('ed-ref')) r = v('ed-ref') + '，' + r;
@@ -503,6 +505,22 @@ function loadEx(k) {
         var el = document.getElementById(id);
         if (el) { el.value = ex.fields[id]; el.dispatchEvent(new Event('input')); }
     });
+}
+function polishPrompt() {
+    // Apply AI enhancement to each filled field
+    var fields = ['t-subject','t-action','t-camera','t-style','t-audio'];
+    var types  = ['action','action','camera','style','action'];
+    fields.forEach(function(id, i) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var raw = el.value.trim();
+        if (!raw) return;
+        var enhanced = enhance(raw, types[i]);
+        if (enhanced && enhanced !== raw) {
+            el.value = enhanced;
+        }
+    });
+    onInput();
 }
 function onInput() { render(); }
 </script>
