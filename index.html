@@ -288,6 +288,14 @@ const ACTION_MAP = {
 
 const QUALITY_SUFFIXES = ['sharp clarity','natural colors','stable picture','no blur','no ghosting','no flickering','avoid jitter','avoid bent limbs','no temporal flicker','no distortion'];
 
+const EXAMPLES = {
+    ugc: { mode: 'text', fields: { 't-subject': 'a young woman, brown hair pulled back, natural skin texture, wearing casual grey t-shirt, in her cozy bedroom', 't-action': 'holds product up to camera with genuine excitement, quick jump cut slightly closer angle, applies it showing texture, leans into camera with natural smile', 't-camera': 'casual handheld selfie angle, natural movement', 't-style': 'natural bedroom window lighting, soft daylight, no ring light, no filters, authentic UGC pacing', 't-audio': 'direct phone mic, room ambience, natural voice', 't-neg': 'avoid jitter, avoid bent limbs', 't-quality': 'sharp clarity, natural colors, stable picture' } },
+    product: { mode: 'text', fields: { 't-subject': 'cold beverage bottle, center frame', 't-action': 'slow 180 rotation on turntable, cold condensation across the glass', 't-camera': 'fluid cinematic glide, macro dolly plus soft orbit plus gentle push-ins', 't-style': 'luxury product commercial, rim light, sharp highlights, volumetric lighting, premium minimalist background', 't-audio': '', 't-neg': 'avoid jitter, avoid distortion, no logo blur, no cap drift', 't-quality': 'sharp clarity, stable picture, no ghosting' } },
+    film: { mode: 'text', fields: { 't-subject': 'a man in his 40s with weathered features, wearing casual work clothes, seated at a wooden desk in a sun-drenched workshop', 't-action': 'carefully carving walnut wood, dust motes float in the light beams from the window, slow push-in from medium shot to close-up on his hands', 't-camera': 'slow push-in, steady controlled motion', 't-style': 'cinematic film tone 35mm, warm golden hour lighting, earthy color palette, shallow depth of field, background softly blurred', 't-audio': 'quiet ambient sound of wood shavings', 't-neg': 'avoid jitter, avoid bent limbs, stable picture, no temporal flicker', 't-quality': 'sharp clarity, natural colors, stable picture' } },
+    action: { mode: 'timeline', fields: { 'tl-header': 'high-intensity cinematic fight in a misty bamboo forest, 15 seconds, photorealistic', 'tl-t1': 'wide establishing shot, static camera, mist rolling between bamboo stalks, golden hour light, two fighters face each other', 'tl-t2': 'medium tracking shot, the fighter in white lunges forward with a spinning strike, fluid orbital tracking follows the motion', 'tl-t3': 'low-angle power shot, impact moment slow motion, bamboo leaves scatter', 'tl-t4': 'pull-out wide shot, the fighter in white stands victorious, rim light separating figure from mist, film grain, anamorphic texture', 'tl-audio': '', 'tl-neg': 'avoid bent limbs, maintain face consistency, sharp clarity, stable picture' } },
+    multi: { mode: 'image', fields: { 'i-ref': '@Image1 (角色) + @Image2 (环境) + @Video1 (运镜) + @Audio1 (音乐)', 'i-identity': 'character from @Image1, consistent identity across all frames', 'i-action': 'walks through the environment from @Image2, camera performs slow orbit matching @Video1 motion arc, scene transitions align with beat positions of @Audio1', 'i-camera': 'slow orbit matching @Video1 motion arc', 'i-style': 'golden hour rim lighting, shallow depth of field', 'i-neg': 'avoid identity drift, avoid jitter, avoid temporal flicker, maintain character identity' } },
+    timeline15: { mode: 'timeline', fields: { 'tl-header': 'cinematic film tone 35mm, warm golden hour lighting', 'tl-t1': 'wide shot, static, world established, ambient sound', 'tl-t2': 'medium shot, slow push-in, tension building, subject prepares', 'tl-t3': 'close-up, emotional peak approaching, one specific detail in sharp focus', 'tl-t4': 'extreme close-up or dramatic reveal, climax action, slow motion or static hold, silence', 'tl-audio': 'beat-aligned transitions', 'tl-neg': 'avoid jitter, avoid bent limbs, maintain face consistency, sharp clarity, stable picture' } }
+};
 // ─── AI polisher ────────────────────────────────────────────────
 function enhance(raw, type) {
     if (!raw || raw.length < 2) return '';
@@ -473,3 +481,28 @@ onInput();
 </script>
 </body>
 </html>
+<script>
+var currentMode = 'text';
+function v(id) { return (document.getElementById(id)||{}).value.trim()||''; }
+function sm(m) {
+    currentMode = m;
+    document.querySelectorAll('.mode-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('[data-mode]').forEach(function(d){ d.classList.remove('active'); });
+    document.querySelectorAll('.mode-tab')[['text','image','edit','extend','timeline'].indexOf(m)].classList.add('active');
+    document.querySelector('[data-mode="'+m+'"]').classList.add('active');
+    var fe = document.getElementById('formulaFlow');
+    var f = {"text":"主体→动作→运镜→风格→约束","image":"@引用图→主体身份→动作→运镜→风格→约束","edit":"@原视频→替换目标→替换为→保持约束","extend":"@原视频→延长目标→运镜→元素→约束","timeline":"片头→[0-4s]→[4-8s]→[8-12s]→[12-15s]→约束"};
+    fe.innerHTML = f[m].split('→').map(function(c){ return '<span class="formula-chip">'+c+'</span><span class="formula-arrow">→</span>'; }).join('').replace(/<span class="formula-arrow">→<\/span>$/,'');
+    onInput();
+}
+function ld(k) {
+    var ex = EXAMPLES[k];
+    if (!ex) return;
+    sm(ex.mode);
+    Object.keys(ex.fields).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) { el.value = ex.fields[id]; el.dispatchEvent(new Event('input')); }
+    });
+}
+function onInput() { render(); }
+</script>
